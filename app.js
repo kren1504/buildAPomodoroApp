@@ -1,19 +1,25 @@
 const bells = new Audio('./mixtape.wav');
 const startBtn = document.querySelector('.btn-start');
-const session = document.querySelector('.minutes');
+const sessionMin = 25
 let myIntetrval;
-let state = true;
+let appStarts = false;
 
-const appTimer = () => {
-    const sessionAmount = Number.parseInt(session.textContent)
+function appTimer(clickInfo){
+    const buttonIdentifier = clickInfo.originalTarget.id
+    const sessionAmount = Number.parseInt(sessionMin)
+    const minuteDiv = document.querySelector('.minutes')
+    const secondsDiv = document.querySelector('.seconds')
+    if (buttonIdentifier == 'reset-button'){ 
+        appStarts = false
+        clearInterval(myIntetrval)
+    }
 
-    if(state){
-        state = false
+    if(!appStarts){
+        appStarts = true
         let totalSeconds = sessionAmount * 60
 
         const updateSeconds = () =>{
-            const minuteDiv = document.querySelector('.minutes')
-            const secondsDiv = document.querySelector('.seconds')
+            console.log('minuteDiv',minuteDiv)
 
             totalSeconds--;
 
@@ -41,3 +47,4 @@ const appTimer = () => {
 }
 
 document.getElementById("start-button").addEventListener("click", appTimer);
+document.getElementById("reset-button").addEventListener("click", appTimer);
