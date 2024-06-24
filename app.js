@@ -1,6 +1,6 @@
 const bells = new Audio('./mixtape.wav');
 const startBtn = document.querySelector('.btn-start');
-const sessionMin = 25
+let sessionMin = 25
 let myIntetrval;
 let appStarts = false;
 
@@ -65,6 +65,22 @@ function appTimer(clickInfo){
     }
 }
 
+function editButton(){
+    document.getElementById('edit-modal').style.display='block'
+}
+
+function saveEdit(){
+    clearInterval(myIntetrval)
+    const editedTimeDiv = document.getElementById('minInput');
+    let minutes = editedTimeDiv.value
+    sessionMin = parseInt(minutes)
+    document.querySelector('.minutes').textContent = minutes;
+    document.querySelector('.seconds').textContent = '00';
+    appStarts = false;
+}
+
 document.getElementById("start-button").addEventListener("click", appTimer);
 document.getElementById("reset-button").addEventListener("click", appTimer);
 document.getElementById("pause-resume-button").addEventListener("click", appTimer);
+document.getElementById("edit-button").addEventListener("click", editButton);
+document.getElementById("edit-save-button").addEventListener("click", saveEdit);
